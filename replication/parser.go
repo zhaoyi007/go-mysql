@@ -213,12 +213,23 @@ func (p *BinlogParser) SetVerifyChecksum(verify bool) {
 	p.verifyChecksum = verify
 }
 
+//added by momo
+func (p *BinlogParser) ParseHeader(data []byte) (*EventHeader, error) {
+        return p.parseHeader(data)
+}
+
+
 func (p *BinlogParser) SetFlavor(flavor string) {
 	p.flavor = flavor
 }
 
 func (p *BinlogParser) SetPayloadDecoderConcurrency(concurrency int) {
 	p.payloadDecoderConcurrency = concurrency
+}
+
+// added by momo
+func (p *BinlogParser) ParseEvent(h *EventHeader, data []byte, rawData []byte) (Event, error) {
+        return p.parseEvent(h, data, rawData)
 }
 
 func (p *BinlogParser) SetRowsEventDecodeFunc(rowsEventDecodeFunc func(*RowsEvent, []byte) error) {
